@@ -22,10 +22,7 @@ OUTPUT:
 } */
 
 function classGraduate(arr) {
-    let result = {passed: [], failed: [], classCode: {A: '', B: '', C: ''}}
-    let classA = 1
-    let classB = 1
-    let classC = 1
+    let result = {passed: [], failed: [], classCode: {}}
     for (let i = 0; i < arr.length; i++) {
 
         // pass/fail filter
@@ -34,25 +31,18 @@ function classGraduate(arr) {
         } else {
             result.passed.push(arr[i][0])
         }
-
-        // class counter
-        switch (arr[i][2]) {
-            case 'A':
-                result.classCode.A = `Total students: ${classA++}`
-                break;
-            
-            case 'B':
-                result.classCode.B = `Total students: ${classB++}`
-                break;
-            
-            case 'C':
-                result.classCode.C = `Total students: ${classC++}`
-                break;
-
-            default:
-                break;
+        
+        if (result.classCode[arr[i][2]] == undefined) {
+            result.classCode[arr[i][2]] = 1
+        } else {
+            result.classCode[arr[i][2]] += 1
         }
     }
+
+    for (const x in result.classCode) {
+        result.classCode[x] = `Total students: ${result.classCode[x]}`
+    }
+        
     return result
 }
 
